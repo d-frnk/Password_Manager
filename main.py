@@ -23,7 +23,7 @@ def save_pass_base(data):
 
 # Generates passwords using the secrets and string modules.
 
-def generate_password(length = 16):
+def generate_password(length=16):
     password = "".join(secrets.choice(string.ascii_letters + string.punctuation + string.digits) for _ in range(length))
     return password
 
@@ -69,6 +69,21 @@ def add_password(service, login):
     return True
 
 
+def delete_password(service):
+    data = load_pass_base()
+
+    if service in data:
+        confirmation = input(f'Do you want to delete service "{service}"? y/n: ')
+        if confirmation.lower() == "y":
+            del data[service]
+            save_pass_base(data)
+            print(f'Service "{service}" was deleted.')
+        else:
+            print("Operation cancelled.")
+    else:
+        print(f'Service "{service}" does not exist.')
+
+
 
 #### User interface ####
 
@@ -76,16 +91,17 @@ def add_password(service, login):
 
 while True:
     print("\n--- PASSWORD MANAGER ---\n")
-    print("Choose option (1 - 4)")
+    print("Choose option (1 - 5)")
     print("1. List services in the database.")
     print("2. Find a service in the database.")
     print("3. Add a new service to the database.")
-    print("4. Exit.")
+    print("4. Delete service from database.")
+    print("5. Exit.")
 
     try: 
-        choice = int(input("Choose an option (1-4): "))
+        choice = int(input("Choose an option (1-5): "))
     except ValueError:
-        print("Error. Enter a digit 1, 2, 3 or 4. ")
+        print("Error. Enter a digit 1, 2, 3, 4 or 5. ")
         continue
 
     if choice == 1:
@@ -93,17 +109,27 @@ while True:
         show_list_services(data)
 
     elif choice == 2:
-        service = input("Enter the name of the service to search for: ")
+        service = input("Enter the name of the service to search for: ").strip()
         get_password(service)
 
     elif choice == 3:
-        service = input("Enter the name of the service: ")
-        login = input("Enter the login: ")
+        service = input("Enter the name of the service: ").strip()
+        if not service:
+            print("Service name cannot be empty.")
+            continue
+        login = input("Enter the login: ").strip()
+        if not login:
+            print("Login cannot be empty.")
+            continue
 
         if add_password(service, login):
             print("Successfully added!")
 
     elif choice == 4:
+        service = input("Enter the name of the service to delete: ").strip()
+        delete_password(service)
+
+    elif choice == 5:
         break
     else:
         print("Invalid choice, please try again.")

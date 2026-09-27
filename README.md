@@ -8,19 +8,15 @@ Warning: This is an educational project and is not intended for storing real pas
 
 Features
 
-Generate random passwords using Python's secrets module.
-
-Store password data in a JSON file.
-
-Handle missing or invalid JSON files.
-
-Interactive command-line interface.
-
-List saved services.
-
-Search for saved services and display their credentials.
-
-Detect duplicate services and allow entries to be overwritten.
+- Generate random passwords using Python's secrets module.
+- Store password data in a JSON file.
+- Handle missing or invalid JSON files.
+- Interactive command-line interface.
+- List saved services.
+- Search for saved services and display their credentials.
+- Detect duplicate services and allow entries to be overwritten.
+- Delete existing services from the database.
+- User input validation (stripping whitespace and preventing empty entries).
 
 Requirements
 
@@ -29,12 +25,9 @@ Python 3.x
 No external dependencies
 
 The project currently uses only Python's standard library:
-
-json
-
-secrets
-
-string
+- json
+- secrets
+- string
 
 How to Run
 
@@ -43,11 +36,9 @@ Clone the repository and navigate to the project directory:
 git clone <repository-url>
 cd PassManager
 
-
 Run the application:
 
 python main.py
-
 
 The application will create and use a base.json file to store password data.
 
@@ -55,15 +46,10 @@ Note: base.json is excluded from Git using .gitignore because it contains sensit
 
 Current Limitations
 
-Passwords are currently stored in plain text in a JSON file.
-
-The database is not encrypted.
-
-There is no master password.
-
-The password generator does not yet allow customization of password requirements.
-
-User input validation is currently limited.
+- Passwords are currently stored in plain text in a JSON file.
+- The database is not encrypted.
+- There is no master password.
+- The password generator does not yet allow customization of password requirements.
 
 These limitations are planned to be addressed in future versions.
 
@@ -71,23 +57,14 @@ Roadmap
 
 Planned improvements include:
 
- Password deletion
-
- Password editing
-
- Custom password length
-
- Customizable password generation
-
- Improved input validation
-
- Unit tests
-
- Master password
-
- Encrypted password database
-
- Safer database handling
+- Password editing
+- Custom password length
+- Customizable password generation
+- Unit tests
+- Master password
+- Encrypted password database
+- Safer database handling
+- Graphical user interface (GUI)
 
 Project Status
 
