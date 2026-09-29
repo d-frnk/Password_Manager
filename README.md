@@ -8,7 +8,7 @@ Warning: This is an educational project and is not intended for storing real pas
 
 Features
 
-- Generate random passwords using Python's secrets module.
+- Generate random passwords using Python's secrets module with custom length option (min 8 characters).
 - Store password data in a JSON file.
 - Handle missing or invalid JSON files.
 - Interactive command-line interface.
@@ -16,6 +16,7 @@ Features
 - Search for saved services and display their credentials.
 - Detect duplicate services and allow entries to be overwritten.
 - Delete existing services from the database.
+- Edit/change existing service passwords.
 - User input validation (stripping whitespace and preventing empty entries).
 
 Requirements
@@ -49,7 +50,7 @@ Current Limitations
 - Passwords are currently stored in plain text in a JSON file.
 - The database is not encrypted.
 - There is no master password.
-- The password generator does not yet allow customization of password requirements.
+- User input validation is currently limited.
 
 These limitations are planned to be addressed in future versions.
 
@@ -57,8 +58,6 @@ Roadmap
 
 Planned improvements include:
 
-- Password editing
-- Custom password length
 - Customizable password generation
 - Unit tests
 - Master password

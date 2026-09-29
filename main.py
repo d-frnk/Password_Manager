@@ -24,8 +24,25 @@ def save_pass_base(data):
 # Generates passwords using the secrets and string modules.
 
 def generate_password(length=16):
+    while True:
+        try:
+            user_input = input(f"Enter password length (min 8, default {length}): ").strip()
+            if not user_input:
+                break
+
+            password_length = int(user_input)
+            if password_length >= 8:
+                length = password_length
+                break
+            else:
+                print("Password length must be at least 8 characters.")
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")        
+
+    
     password = "".join(secrets.choice(string.ascii_letters + string.punctuation + string.digits) for _ in range(length))
     return password
+
 
 def get_password(service):
     data = load_pass_base()
@@ -58,7 +75,6 @@ def add_password(service, login):
             print("Operation cancelled.")
             return False
 
-
     password = generate_password()
 
     data[service] = {
@@ -69,7 +85,7 @@ def add_password(service, login):
     return True
 
 
-def delete_password(service):
+def delete_service(service):
     data = load_pass_base()
 
     if service in data:
@@ -84,24 +100,38 @@ def delete_password(service):
         print(f'Service "{service}" does not exist.')
 
 
+def change_password(service):
+    data = load_pass_base()
+
+    if service in data:
+        confirmation = input(f'Do you want to change service password: "{service}"? y/n: ')
+        if confirmation.lower() == "y":
+            data[service]['password'] = generate_password()
+            save_pass_base(data)
+            return True
+        else:
+            print("Operation canceled.")
+            return False
+    else:
+        print(f'Service "{service}" does not exist.')
+
 
 #### User interface ####
 
-
-
 while True:
     print("\n--- PASSWORD MANAGER ---\n")
-    print("Choose option (1 - 5)")
+    print("Choose option (1 - 6)")
     print("1. List services in the database.")
     print("2. Find a service in the database.")
     print("3. Add a new service to the database.")
     print("4. Delete service from database.")
-    print("5. Exit.")
+    print("5. Change service password in the database.")
+    print("6. Exit.")
 
     try: 
-        choice = int(input("Choose an option (1-5): "))
+        choice = int(input("Choose an option (1-6): "))
     except ValueError:
-        print("Error. Enter a digit 1, 2, 3, 4 or 5. ")
+        print("Error. Enter a digit 1, 2, 3, 4, 5 or 6. ")
         continue
 
     if choice == 1:
@@ -127,9 +157,13 @@ while True:
 
     elif choice == 4:
         service = input("Enter the name of the service to delete: ").strip()
-        delete_password(service)
+        delete_service(service)
 
     elif choice == 5:
+        service = input("Enter the name of the service to change password: ").strip()
+        change_password(service)
+
+    elif choice == 6:
         break
     else:
         print("Invalid choice, please try again.")
