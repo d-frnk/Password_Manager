@@ -1,1 +1,7 @@
 base.json
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.vscode/
+.DS_Store
